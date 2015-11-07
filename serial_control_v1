@@ -9,23 +9,23 @@ const int LeftPin = 5;
 const int RightPin = 6;
 
 void setup() {
- Serial.begin(9600); 
- Serial.flush(); 
- Left.attach(LeftPin);
- Right.attach(RightPin);
- Left.write(90);
- Right.write(90);
+  Serial.begin(9600); 
+  Serial.flush(); 
+  Left.attach(LeftPin);
+  Right.attach(RightPin);
+  Left.write(90);
+  Right.write(90);
 }
 
-void loop() {
-  
+void loop()
+{
   if(Serial.available()>0)
   {
-  //dir=Serial.parseInt();
-  dir = Serial.read();
-  dur = Serial.parseInt();
-  Serial.print(dir);
-  Serial.println(dur);
+    //dir=Serial.parseInt();
+    dir = Serial.read();
+    dur = Serial.parseInt();
+    Serial.print(dir);
+    Serial.println(dur);
   }
 
   if(dir=='W')
@@ -33,10 +33,28 @@ void loop() {
     Left.write(60);
     Right.write(60);
     del_time=dur*1000;
-    delay(del_time);
-    Left.write(90);
-    Right.write(90);
+
+    for (int i = 0; i < del_time; i++)
+    {
+      delay(1);
+      if(Serial.available()>0)
+      {
+        //dir=Serial.parseInt();
+        dir = Serial.read();
+      }
+      if (dir == 'X')
+      {
+        Left.write(90);
+        Right.write(90);
+        Serial.print(dir);
+        break;
+      }
+      else{
+      }
+    }
   }
+
+
   else if(dir=='A')
   {
     del_time=2000;
@@ -64,6 +82,11 @@ void loop() {
     Left.write(90);
     Right.write(90);
   }
-  else{}
+  else{
+  }
+
+
 }
+
+
 
