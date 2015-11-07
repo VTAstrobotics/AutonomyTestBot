@@ -1,0 +1,69 @@
+#include <Servo.h>
+
+Servo Left;
+Servo Right;
+char dir;
+int dur=0;
+int del_time=0;
+const int LeftPin = 5;
+const int RightPin = 6;
+
+void setup() {
+ Serial.begin(9600); 
+ Serial.flush(); 
+ Left.attach(LeftPin);
+ Right.attach(RightPin);
+ Left.write(90);
+ Right.write(90);
+}
+
+void loop() {
+  
+  if(Serial.available()>0)
+  {
+  //dir=Serial.parseInt();
+  dir = Serial.read();
+  dur = Serial.parseInt();
+  Serial.print(dir);
+  Serial.println(dur);
+  }
+
+  if(dir=='W')
+  {
+    Left.write(60);
+    Right.write(60);
+    del_time=dur*1000;
+    delay(del_time);
+    Left.write(90);
+    Right.write(90);
+  }
+  else if(dir=='A')
+  {
+    del_time=2000;
+    Left.write(120);
+    Right.write(60);
+    delay(del_time);
+    Left.write(90);
+    Right.write(90);
+  }
+  else if(dir=='S')
+  {
+    Left.write(120);
+    Right.write(120);
+    del_time=dur*1000;
+    delay(del_time);
+    Left.write(90);
+    Right.write(90);
+  }
+  else if(dir=='D')
+  {
+    del_time=2000;
+    Left.write(60);
+    Right.write(120);
+    delay(del_time);
+    Left.write(90);
+    Right.write(90);
+  }
+  else{}
+}
+
