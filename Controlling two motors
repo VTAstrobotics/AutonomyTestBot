@@ -1,0 +1,17 @@
+#include <Servo.h>
+
+Servo Left;
+Servo Right;
+
+const int LeftPin = 5;
+const int RightPin = 6;
+
+void setup() {
+ Left.attach(LeftPin);
+ Right.attach(RightPin);
+}
+
+void loop() {
+  Left.write(120);
+  Right.write(60);
+}
